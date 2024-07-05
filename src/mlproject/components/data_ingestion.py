@@ -6,6 +6,8 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 
 
+home_dir = Path(__file__).parent.parent.parent.parent
+
 @dataclass(frozen=True)
 class DataIngestionConfig:
     train_data_path: Path = Path('artifacts') / 'train.csv'
@@ -19,7 +21,7 @@ class DataIngestion:
 
     def initiate_data_ingestion(self):
         try:
-            df = read_sql_data()
+            df = pd.read_csv(home_dir / 'artifacts/raw.csv')
             logger.info("Reading completed mysql database")
 
             Path(self.ingestion_config.train_data_path.parent).mkdir(parents=True, exist_ok=True)
